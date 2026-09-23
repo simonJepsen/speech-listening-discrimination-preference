@@ -1,0 +1,164 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.5;
+  color: #202124;
+  background: #f5f6f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem;
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 8%);
+}
+
+label {
+  display: block;
+  margin: 1rem 0;
+}
+
+select {
+  display: block;
+  width: min(420px, 100%);
+  margin-top: 0.35rem;
+  padding: 0.65rem;
+}
+
+button {
+  padding: 0.8rem 1rem;
+  border: 1px solid #30343b;
+  border-radius: 8px;
+  font: inherit;
+  cursor: pointer;
+  background: #f8f9fa;
+}
+
+button:hover:not(:disabled) {
+  background: #eceff3;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+audio {
+  width: 100%;
+}
+
+.audio-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.audio-grid-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.audio-grid-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.audio-card {
+  padding: 1rem;
+  border: 1px solid #d9dce1;
+  border-radius: 10px;
+}
+
+.audio-card button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.wide-button {
+  display: block;
+  width: min(420px, 100%);
+  margin: 1rem auto;
+}
+
+.progress-row {
+  display: grid;
+  gap: 0.5rem;
+}
+
+progress {
+  width: 100%;
+}
+
+.headphone-trial {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid #d9dce1;
+  border-radius: 10px;
+}
+
+.headphone-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.headphone-option {
+  padding: 0.75rem;
+  border: 1px solid #eceef1;
+  border-radius: 8px;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.error {
+  color: #a00000;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding: 0.75rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .audio-grid-three,
+  .audio-grid-two,
+  .headphone-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.questionnaire {
+  margin: 2rem 0;
+  padding: 1.25rem;
+  border: 1px solid #d9dce1;
+  border-radius: 10px;
+}
+
+.questionnaire input[type="text"],
+.questionnaire select,
+#finalComments {
+  display: block;
+  width: min(520px, 100%);
+  margin-top: 0.35rem;
+  padding: 0.7rem;
+  font: inherit;
+}
+
+#finalComments {
+  resize: vertical;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speech Listening Study</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <section id="consentStage" class="stage">
+    <h1>Speech Listening Study</h1>
+
+    <p>
+      This study contains two listening tasks:
+      a discrimination task and a preference task.
+      Each task contains 30 trials.
+    </p>
+
+    <label>
+      <input type="checkbox" id="consent">
+      I consent to anonymous participation in this study.
+    </label>
+
+    <label>
+      <input type="checkbox" id="adult">
+      I meet the minimum age requirement of 18 years.
+    </label>
+
+    <label>
+      <input type="checkbox" id="quietRoom">
+      I am currently in a quiet environment.
+    </label>
+
+    <label>
+      <input type="checkbox" id="headphones">
+      I am using headphones or earphones.
+    </label>
+
+    <label for="deviceType">Listening device</label>
+    <select id="deviceType">
+      <option value="">Select one</option>
+      <option value="over_ear">Over-ear headphones</option>
+      <option value="on_ear">On-ear headphones</option>
+      <option value="in_ear">In-ear earphones</option>
+      <option value="other_headphones">Other headphones or earphones</option>
+    </select>
+
+    <label for="environmentNoise">Current background-noise level</label>
+    <select id="environmentNoise">
+      <option value="">Select one</option>
+      <option value="very_quiet">Very quiet</option>
+      <option value="quiet">Quiet</option>
+      <option value="moderate">Moderate</option>
+    </select>
+    
+    <!-- Insert inside #consentStage, before #consentError. -->
+    <fieldset class="questionnaire">
+      <legend>About you and your listening setup</legend>
+
+      <label for="ageGroup">Age group</label>
+      <select id="ageGroup" required>
+        <option value="">Select one</option>
+        <option value="18_24">18–24</option>
+        <option value="25_34">25–34</option>
+        <option value="35_44">35–44</option>
+        <option value="45_54">45–54</option>
+        <option value="55_64">55–64</option>
+        <option value="65_plus">65 or older</option>
+        <option value="prefer_not_to_say">Prefer not to say</option>
+      </select>
+
+      <label for="sexAssignedAtBirth">
+        Sex assigned at birth
+      </label>
+
+      <select id="sexAssignedAtBirth" required>
+        <option value="">Select one</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+        <option value="intersex">Intersex</option>
+        <option value="prefer_not_to_say">Prefer not to say</option>
+      </select>
+
+      <label for="genderIdentity">Gender identity (optional)</label>
+      <input id="genderIdentity" type="text" placeholder="Optional">
+
+      <label for="nativeLanguage">Native language</label>
+      <input id="nativeLanguage" type="text"
+             placeholder="For example, Danish" required>
+
+      <label for="englishProficiency">English proficiency</label>
+      <select id="englishProficiency" required>
+        <option value="">Select one</option>
+        <option value="native">Native</option>
+        <option value="fluent">Fluent</option>
+        <option value="advanced">Advanced</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="basic">Basic</option>
+      </select>
+
+      <label for="englishUseFrequency">
+        How often do you communicate in English?
+      </label>
+      <select id="englishUseFrequency" required>
+        <option value="">Select one</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="rarely">Rarely</option>
+      </select>
+
+      <label for="normalHearing">Do you have any known hearing impairments?</label>
+      <select id="normalHearing" required>
+        <option value="">Select one</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <label for="hearingAidUse">Hearing-aid use</label>
+      <select id="hearingAidUse" required>
+        <option value="">Select one</option>
+        <option value="no">I do not use hearing aids</option>
+        <option value="yes_not_using_now">
+          I use hearing aids, but not for this study
+        </option>
+        <option value="yes_using_now">
+          I am using hearing aids for this study
+        </option>
+        <option value="prefer_not_to_say">Prefer not to say</option>
+      </select>
+
+      <label for="listeningEnvironment">Listening environment</label>
+      <select id="listeningEnvironment" required>
+        <option value="">Select one</option>
+        <option value="home_quiet_room">Quiet room at home</option>
+        <option value="office_quiet">Quiet office or study space</option>
+        <option value="shared_room">Shared room with some activity</option>
+        <option value="public_place">Public place</option>
+        <option value="other">Other</option>
+      </select>
+    </fieldset>
+
+
+    <p id="consentError" class="error" aria-live="polite"></p>
+    <button id="toHeadphoneCheck" type="button">Continue</button>
+  </section>
+
+  <section id="headphoneStage" class="stage" hidden>
+    <h1>Headphone check</h1>
+    <p>
+      Play all three samples in each row and select the quietest sample.
+      Keep your playback volume unchanged during the check.
+    </p>
+
+    <div id="headphoneTrials"></div>
+
+    <p id="headphoneError" class="error" aria-live="polite"></p>
+    <button id="submitHeadphoneCheck" type="button">
+      Submit headphone check
+    </button>
+  </section>
+
+  <section id="calibrationStage" class="stage" hidden>
+    <h1>Volume calibration</h1>
+
+    <p>
+      Adjust your computer volume until the sample is comfortable and clearly
+      audible. Do not change the playback volume after continuing.
+    </p>
+
+    <audio id="calibrationAudio" controls preload="auto"
+           src="screening/calibration.wav"></audio>
+
+    <label>
+      <input type="checkbox" id="volumeConfirmed">
+      The sample is comfortable and clearly audible.
+    </label>
+
+    <p id="calibrationError" class="error" aria-live="polite"></p>
+    <button id="startExperiment" type="button">Start experiment</button>
+  </section>
+
+  <section id="instructionsStage" class="stage" hidden>
+    <h1 id="instructionsTitle"></h1>
+    <div id="instructionsBody"></div>
+    <button id="beginBlock" type="button">Begin task</button>
+  </section>
+
+  <section id="triangleStage" class="stage" hidden>
+    <div class="progress-row">
+      <p id="triangleCounter"></p>
+      <progress id="triangleProgress" value="0" max="25"></progress>
+    </div>
+
+    <h1>Which recording is different?</h1>
+    <p>
+      Two recordings are identical and one is different.
+      Listen to all three, then select the different recording. If you are unsure, make your best guess.
+    </p>
+
+    <div class="audio-grid audio-grid-three">
+      <article class="audio-card">
+        <h2>Recording 1</h2>
+        <audio id="triangleAudio1" controls preload="auto"></audio>
+        <button class="triangleChoice" data-position="1" disabled>
+          Recording 1 is different
+        </button>
+      </article>
+
+      <article class="audio-card">
+        <h2>Recording 2</h2>
+        <audio id="triangleAudio2" controls preload="auto"></audio>
+        <button class="triangleChoice" data-position="2" disabled>
+          Recording 2 is different
+        </button>
+      </article>
+
+      <article class="audio-card">
+        <h2>Recording 3</h2>
+        <audio id="triangleAudio3" controls preload="auto"></audio>
+        <button class="triangleChoice" data-position="3" disabled>
+          Recording 3 is different
+        </button>
+      </article>
+    </div>
+
+    <p id="triangleStatus" class="status">
+      Listen to all three recordings before answering.
+    </p>
+    <p id="triangleError" class="error" aria-live="polite"></p>
+  </section>
+
+  <section id="preferenceStage" class="stage" hidden>
+    <div class="progress-row">
+      <p id="preferenceCounter"></p>
+      <progress id="preferenceProgress" value="0" max="25"></progress>
+    </div>
+
+    <h1>Which recording do you prefer?</h1>
+    <p>
+      Listen to both recordings, then choose which you would prefer for
+      everyday listening. Select “No preference” when neither is preferred.
+    </p>
+
+    <div class="audio-grid audio-grid-two">
+      <article class="audio-card">
+        <h2>Recording A</h2>
+        <audio id="preferenceAudioA" controls preload="auto"></audio>
+        <button class="preferenceChoice" data-choice="A" disabled>
+          Prefer Recording A
+        </button>
+      </article>
+
+      <article class="audio-card">
+        <h2>Recording B</h2>
+        <audio id="preferenceAudioB" controls preload="auto"></audio>
+        <button class="preferenceChoice" data-choice="B" disabled>
+          Prefer Recording B
+        </button>
+      </article>
+    </div>
+
+    <button id="noPreferenceButton" class="wide-button" type="button" disabled>
+      No preference
+    </button>
+
+    <p id="preferenceStatus" class="status">
+      Listen to both recordings before answering.
+    </p>
+    <p id="preferenceError" class="error" aria-live="polite"></p>
+  </section>
+
+  <section id="breakStage" class="stage" hidden>
+    <h1>First task completed</h1>
+    <p>
+      You have completed 30 trials. Take a short break before starting the
+      second task.
+    </p>
+    <button id="startSecondBlock" type="button">Start second task</button>
+  </section>
+
+  <section id="doneStage" class="stage" hidden>
+    <!-- Put inside #doneStage. -->
+    <label for="finalComments">
+      Optional comments or technical problems
+    </label>
+    <textarea id="finalComments" rows="5" maxlength="2000"
+      placeholder="For example: audio stuttered, a recording did not play, or I clicked accidentally."></textarea>
+    <button id="saveCommentsButton" type="button">Save comments</button>
+    <p id="commentsStatus" class="status" aria-live="polite"></p>
+
+    <h1>Thank you</h1>
+    <p>
+      You completed 30 discrimination trials and 30 preference trials.
+      Your responses have been recorded.
+    </p>
+  </section>
+
+  <section id="screenFailStage" class="stage" hidden>
+    <h1>Headphone check not passed</h1>
+    <p>
+      The main study requires headphones and a quiet listening environment.
+      No main-task responses were collected.
+    </p>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="experiment.js"></script>
+</body>
+</html>
